@@ -43,67 +43,73 @@ public class connect {
         }
         return null;
     }
-    
-    
-      public void createTableCustomer() throws SQLException {
-           Statement st = connect.getcon().createStatement();
-         try{ st.execute("CREATE TABLE "
-            + customerTable
-           + "(id INTEGER NOT NULL PRIMARY KEY, name VARCHAR(25) NOT NULL,address VARCHAR(50), phone INTEGER)");
-          System.out.println("Created table "+ customerTable);
-       } catch(SQLException e){
-           
-           if(tableAlreadyExists(e)){
-           
-           }else{
-               throw e;
-           }
-           
-       }}
-      
-    public void createTableSupplier() throws SQLException {       
+
+    public void createTableCustomer() throws SQLException {
         Statement st = connect.getcon().createStatement();
-       try{ st.execute("CREATE TABLE "
-          + supplierTable
-          + "(id INTEGER NOT NULL PRIMARY KEY, name VARCHAR(25), address VARCHAR(50), phone INTEGER,company VARCHAR(25))");
-        System.out.println("Created table "+ supplierTable);
-    } catch(SQLException e){
-           
-           if(tableAlreadyExists(e)){
-           
-           }else{
-               throw e;
-           }
-           
-       }}
-          
+        try {
+            st.execute("CREATE TABLE "
+                    + customerTable
+                    + "(id INTEGER NOT NULL PRIMARY KEY, name VARCHAR(25) NOT NULL,address VARCHAR(50), phone INTEGER)");
+            System.out.println("Created table " + customerTable);
+        } catch (SQLException e) {
+
+            if (tableAlreadyExists(e)) {
+
+            } else {
+                throw e;
+            }
+
+        }
+    }
+
+    public void createTableSupplier() throws SQLException {
+
+        Statement st = connect.getcon().createStatement();
+        try {
+            st.execute("CREATE TABLE "
+                    + supplierTable
+                    + "(id INTEGER NOT NULL PRIMARY KEY, name VARCHAR(25), address VARCHAR(50), phone INTEGER,company VARCHAR(25))");
+            System.out.println("Created table " + supplierTable);
+        } catch (SQLException e) {
+
+            if (tableAlreadyExists(e)) {
+
+            } else {
+                throw e;
+            }
+
+        }
+    }
+
     public void createTableProduct() throws SQLException {
         Statement st = connect.getcon().createStatement();
-       try{ st.execute("CREATE TABLE "
-          + productTable
-          + "(serialnumber INTEGER NOT NULL PRIMARY KEY, name VARCHAR(25), description VARCHAR(75), price INTEGER,quantity INTEGER, category VARCHAR(25), brand VARCHAR(25),totalprice INTEGER, supplierId INTEGER, stocklevel INTEGER, imageurl VARCHAR(75),"
-                + "FOREIGN KEY(supplierId) REFERENCES supplier(id))");
-        System.out.println("Created table "+ productTable);
-    }catch(SQLException e){
-           
-           if(tableAlreadyExists(e)){
-           
-           }else{
-               throw e;
-           }
-           
-       }}
-      
-      public boolean tableAlreadyExists(SQLException e){
-      
-          boolean exists;
-          if(e.getSQLState().equals("X0Y32")){
-          exists = true;
-          }else{
-           exists = false;
-          }
-      return exists;
-      }
+        try {
+            st.execute("CREATE TABLE "
+                    + productTable
+                    + "(serialnumber INTEGER NOT NULL PRIMARY KEY, name VARCHAR(25), description VARCHAR(75), price INTEGER,quantity INTEGER, category VARCHAR(25), brand VARCHAR(25),totalprice INTEGER, supplierId INTEGER, stocklevel INTEGER, imageurl VARCHAR(75),"
+                    + "FOREIGN KEY(supplierId) REFERENCES supplier(id))");
+            System.out.println("Created table " + productTable);
+        } catch (SQLException e) {
+
+            if (tableAlreadyExists(e)) {
+
+            } else {
+                throw e;
+            }
+
+        }
+    }
+
+    public boolean tableAlreadyExists(SQLException e) {
+
+        boolean exists;
+        if (e.getSQLState().equals("X0Y32")) {
+            exists = true;
+        } else {
+            exists = false;
+        }
+        return exists;
+    }
 
     public void insertCustomer(int id, String name, String address, int phone) {
         try {
@@ -142,21 +148,13 @@ public class connect {
     }
 
     public void createTableEmployee() throws SQLException {//        
-        try{Statement st = connect.getcon().createStatement();
+        Statement st = connect.getcon().createStatement();
         st.execute("CREATE TABLE "
-          + employeeTable
-          + "(username VARCHAR(25) NOT NULL PRIMARY KEY, password VARCHAR(25),name VARCHAR(25),address VARCHAR(50), phone INTEGER)");
-        System.out.println("Created table "+ employeeTable);
-        } catch(SQLException e){
-           
-           if(tableAlreadyExists(e)){
-           
-           }else{
-               throw e;
-           }
-           
-       }}
-    
+                + employeeTable
+                + "(username VARCHAR(25) NOT NULL PRIMARY KEY, password VARCHAR(25),name VARCHAR(25),address VARCHAR(50), phone INTEGER)");
+        System.out.println("Created table " + employeeTable);
+    }
+
     public void insertEmployee(String username, String password, String name, String address, int phone) {
         try {
             Statement st = connect.getcon().createStatement();
@@ -191,8 +189,6 @@ public class connect {
      System.out.println("Insert error " + supplierTable + ex);
      }
      }*/
-
-
     void insertSupplier(int int_supId, String supplierName, String supplierAddress, int int_supphone, String supplierCompany) {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         try {
@@ -238,51 +234,82 @@ public class connect {
 
     }
 
-    void insertProduct(int productID, String productDes, String productCategory, String productBrand, String prodSuppName, int noOfItems) {
+//    void insertProduct(int productID, String productDes, String productCategory, String productBrand, String prodSuppName, int noOfItems) {
+//        // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+//        try {
+//            Statement st = connect.getcon().createStatement();
+//            System.out.println(productID + " " + productDes + " " + productCategory + " " + productBrand + " " + prodSuppName + " " + noOfItems);
+//            // String supplierT = "SUPPLIER";
+//            String sqlins = "INSERT INTO " + productTable + " VALUES(" + productID + ",\'" + productDes + "\',\'" + productCategory + "\',\'" + productBrand + "\',\'" + prodSuppName + "\'," + noOfItems + ")";
+//            st.execute(sqlins);
+//            st.close();
+//
+//        } catch (SQLException ex) {
+//            System.out.println("Insert error " + productTable + ex);
+//        }
+//
+//    }
+//    void updateProduct(int productID, String productDes, String productCategory, String productBrand, String prodSuppName, int noOfItems) {
+//        // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+//        System.out.println(productID);
+//        try {
+//            Statement ps = connect.getcon().createStatement();
+//            String sqlup = "UPDATE " + productTable + " SET "
+//                    + "productid=\'" + productID + "\', description=\'" + productDes + "\', noofitems=" + noOfItems + " WHERE PRODUCTID=" + productID + "";
+//            ps.execute(sqlup);
+//
+//            System.out.println("Updated " + productID);
+//        } catch (SQLException ex) {
+//            System.out.println("Update error " + productTable + ex);
+//        }
+//
+//    }
+
+    void deleteProduct(int int_serialNumber) {
         // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         try {
+            Statement ps = connect.getcon().createStatement();
+            String sqldel = "DELETE FROM " + productTable + " WHERE serialnumber=" + int_serialNumber + "";
+            ps.execute(sqldel);
+            System.out.println("deleted " + int_serialNumber);
+        } catch (SQLException ex) {
+            System.out.println("Delete error " + productTable + ex);
+        }
+
+    }
+
+    void insertProduct(int int_serialNumber, String proName, String proDescription, int int_price, int int_quantity, String proCategory, String proBrand, int int_totPrice, int int_suppId, int int_stockLevel, String imageUrl) {
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
             Statement st = connect.getcon().createStatement();
-            System.out.println(productID + " " + productDes + " " + productCategory + " " + productBrand + " " + prodSuppName + " " + noOfItems);
+            System.out.println(int_serialNumber + " " + proName + " " + proDescription + " " + int_price + " " + int_quantity + " " + proCategory);
             // String supplierT = "SUPPLIER";
-            String sqlins = "INSERT INTO " + productTable + " VALUES(" + productID + ",\'" + productDes + "\',\'" + productCategory + "\',\'" + productBrand + "\',\'" + prodSuppName + "\'," + noOfItems + ")";
-            st.execute(sqlins);
+                String sqlins = "INSERT INTO " + productTable + " VALUES(" + int_serialNumber + ",\'" + proName + "\',\'" + proDescription + "\'," + int_price + "," + int_quantity + ",\'" + proCategory + "\',\'" + proBrand + "\'," + int_totPrice + "," + int_suppId + "," + int_stockLevel + ",\'" + imageUrl + "\')";
+               st.execute(sqlins);
             st.close();
 
         } catch (SQLException ex) {
             System.out.println("Insert error " + productTable + ex);
         }
-
     }
 
-    void updateProduct(int productID, String productDes, String productCategory, String productBrand, String prodSuppName, int noOfItems) {
-        // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        System.out.println(productID);
+    void updateProduct(int int_serialNumber, String proName, String proDescription, int int_price, int int_quantity, String proCategory, String proBrand, int int_totPrice, int int_suppId, int int_stockLevel, String imageUrl) {
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+   
+            System.out.println(int_serialNumber);
         try {
             Statement ps = connect.getcon().createStatement();
             String sqlup = "UPDATE " + productTable + " SET "
-                    + "productid=\'" + productID + "\', description=\'" + productDes + "\', noofitems=" + noOfItems + " WHERE PRODUCTID=" + productID + "";
+                    + "NAME=\'" + proName + "\', DESCRIPTION=\'" + proDescription + "\', PRICE=" + int_price + " WHERE SERIALNUMBER=" + int_serialNumber + "";
             ps.execute(sqlup);
 
-            System.out.println("Updated " + productID);
+         //   System.out.println("Updated " + int_supId);
         } catch (SQLException ex) {
-            System.out.println("Update error " + productTable + ex);
-        }
-
-    }
-
-    void deleteProduct(int int_productId) {
-       // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-           try {
-            Statement ps = connect.getcon().createStatement();
-            String sqldel = "DELETE FROM " + productTable + " WHERE productid=" + int_productId + "";
-            ps.execute(sqldel);
-            System.out.println("deleted " + int_productId);
-        } catch (SQLException ex) {
-            System.out.println("Delete error " + productTable + ex);
+            System.out.println("Update error " + supplierTable + ex);
         }
     
     }
 }
 /* String sqlup = "UPDATE " + supplierTable + " SET "
-                    + "NAME=\'" + supplierName + "\', ADDRESS=\'" + supplierAddress + "\', PHONE=" + supplierPhone + " WHERE ID=" + int_supId + "";
-            ps.execute(sqlup);*/
+ + "NAME=\'" + supplierName + "\', ADDRESS=\'" + supplierAddress + "\', PHONE=" + supplierPhone + " WHERE ID=" + int_supId + "";
+ ps.execute(sqlup);*/
